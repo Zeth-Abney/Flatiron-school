@@ -27,3 +27,43 @@
 * `relative_living_space` - sqft relative to nearest 15 houses
 * `relative_lot_size` - sqft relative to nearest 15 houses
 * `level_difference` - difference between sqft_above and sqft basement.
+
+
+First linreg model:
+ p_value > .05 
+ ()
+- sqft_lot
+- sqft_above *
+- sqft_basement *
+- yr_built 
+- sqft_lot15
+- age
+- relative_living_space *
+- relative_lot_size 
+
+* adjust for outliers???
+
+Variance inflation factors:
+(age,day_of_year,level_ratio)
+{'bedrooms': 58.32118384194414, 
+ 'bathrooms': 57.84054290751994,
+ 'sqft_living': inf,
+ 'sqft_lot': inf,
+ 'floors': 15.926052423084142,
+ 'condition': 27.9388737465139,
+ 'grade': 13.70204366610633,
+ 'sqft_above': inf,
+ 'sqft_basement': inf,
+ 'sqft_living15': inf,
+ 'sqft_lot15': inf,
+ 'age': 6.881296527889314, *******************
+ 'day_of_year': 4.6860289878245736, ***************
+ 'bed_bath_ratio': 30.0137067238,
+ 'level_ratio': 1.3218881314724718, ****************
+ 'relative_living_space': inf,
+ 'relative_lot_size': inf,
+ 'level_difference': inf}
+ 
+ * good ( x <= 5)
+ ~ maybe ( 6 <= X <= 9)
+ ! no good (X => 10)
