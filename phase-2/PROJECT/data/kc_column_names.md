@@ -20,7 +20,16 @@
 'river/slough waterfronts':[00000]}
 
 * `view` - Quality of view from house
-  * Includes views of Mt. Rainier, Olympics, Cascades, Territorial, Seattle Skyline, Puget Sound, Lake Washington, Lake Sammamish, small lake / river / creek, and other
+  * Includes views of 
+  {'Mt. Rainier': 46.852886, -121.760374
+  'Olympics': 47.96935, -123.49856
+  'Cascades': 47.425938, -121.700106
+  'Territorial': 0,0
+  'Seattle Skyline': 47.6204, -122.3491 
+  'Puget Sound': 47.694239, -122.462782
+  'Lake Washington': 47.621187, -122.256172
+  'Lake Sammamish': 47.608341, -122.087502
+  'small lake/river/creek/other': 0,0} 
   
 * `condition` - {'Poor':1,'Fair':2,'Average':3,'Good':4,'Very Good':5}
 1 = Poor- Worn out. Repair and overhaul needed on painted surfaces, roofing, plumbing, heating and numerous functional inadequacies. Excessive deferred maintenance and abuse, limited value-in-use, approaching abandonment or major reconstruction; reuse or change in occupancy is imminent. Effective age is near the end of the scale regardless of the actual chronological age.
