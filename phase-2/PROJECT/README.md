@@ -12,7 +12,6 @@ Please fill out:
 * Blog post URL: !!!TBA!!!
 
 ## Overview
-![img](\media\data_understanding.png)
 
 Fliphouse, LLC, a family owned business seeking to expand its market share is in the business of "flipping" houses. Fliphouse will strategically purchase a  residential property, renovated it and then rent or sell it with the hopes of generating positive revenue by either renting or re-selling the property. Fliphouse seeks to develop a new competitive edge throughout this phase of expansion by becomming a data-driven company. For these reasons Fliphouse has decided to hire the consulting services of a data scientist to provide data-driven recommendations on how to enter and behave within the target market. 
 
@@ -24,6 +23,7 @@ In this phase of expansion, Fliphouse seeks to enter the realestate market of th
 Therefore, this anaylisis will seek to build a statistical model that is informative as far as specifiying what metrics to use and how strong each metric may be in terms of predicting the market value of a real estate property. 
 
 ## Data understanding
+![img](./media/data_understanding.png)
 
 The data set used in this analysis is open-source data available directly from Kings County's website (https://kingcounty.gov/services/data.aspx). This particular data set covers various aspects of realestate transactions including date of sale, square footage of house and lot, proximity to recreational and natural resources, etc. 
 
@@ -49,7 +49,7 @@ At this point the model was strong, the set of features was somewhat limited. Th
 
 
 ## [Modeling](student.ipynb#modeling)
-![img](.\media\model_residuals_CDF.png)
+![img](./media/model_residuals_CDF.png)
 
 An extensive iterative process was conducted to achieve the final model, to see this process in detail please review the [exploratory analysis notebook ](EDA.ipynb). 
 
@@ -68,7 +68,8 @@ I have confidence that this is a strong model because as best I can tell it sati
 <img src=\media\model_performance_lineplot.png alt="Model performance metrics accross iterations" title="Performance metrics through iterations" />
 
 Further more after several iterations of test sampling the mean sqaured error of test samples are nearly exactly the same as their training sampel counterparts, indicating that this model not only fits well the sample of data used in this analysis but also the population of analogous data that really exists. This is illustated in the figure below.
-![img](.\media\train_test_split_CDF.png)
+![img](./media/train_test_split_CDF.png)
+
 
 ## [Regression Results](student.ipynb#regression_results)
 
@@ -92,7 +93,7 @@ When is the best time to by is somewhat unclear. The model suggests that prices 
 For the purposes of the client, Fliphouse, LLC. I recommend looking at properties on Lake Union, or north of downtown Seattle and on a waterfront, with a view of said waterfront. Furthermore I recommend finding properties that satisfty the aformentioned geogrpahic stipulations that are in need of repair and potentially do not satisfy city building codes. The best course of action according to this analysis would be to bring the building and property up to code and beyond and perhaps add one or two bathrooms to the structure. 
 
 The figure below is meant to hint at how much each answer to the various questions contributes to the price of a realestate listing in Kings County, Washington. 
-![img](.\media\final_model_treemap.png)
+![img](./media/final_model_treemap.png)
 
 
 ### Next Steps
