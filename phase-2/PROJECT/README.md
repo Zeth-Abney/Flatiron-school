@@ -1,4 +1,4 @@
-# Fliphouse, LLC. Regression analysis to inform purchasing decisions. 
+# Fliphouse, LLC. Regression Analysis to Inform Purchase and Renovation Decisions. 
 
 **Author**: [Zeth Abney](mailto:zethusabney@gmail.com)
 
@@ -15,12 +15,14 @@ Please fill out:
 
 Fliphouse, LLC, a family owned business seeking to expand its market share is in the business of "flipping" houses. Fliphouse will strategically purchase a  residential property, renovated it and then rent or sell it with the hopes of generating positive revenue by either renting or re-selling the property. Fliphouse seeks to develop a new competitive edge throughout this phase of expansion by becomming a data-driven company. For these reasons Fliphouse has decided to hire the consulting services of a data scientist to provide data-driven recommendations on how to enter and behave within the target market. 
 
+
 ## Business understanding
 ![img](./media/house_flip.png)
 
 In this phase of expansion, Fliphouse seeks to enter the realestate market of the pacific northwest, and specifically Seattle Washington and the surrounding area (i.e. Kings County). Before begining any projects in the area, FlipHouse decision makers need to better understand how to determine the opportunity cost, and potential returns for any investments made in Kings County, as well as how to maximize those returns. The oportunity cost and potential returns can indeed be determined by understanding how time, physical location, and physical condition and attributes all affect the price of a real estate property. 
 
 Therefore, this anaylisis will seek to build a statistical model that is informative as far as specifiying what metrics to use and how strong each metric may be in terms of predicting the market value of a real estate property. 
+
 
 ## Data understanding
 ![img](./media/data_understanding.png)
@@ -35,17 +37,17 @@ For more details on understanding the data and statistics of the final model see
 
 ## [Data preparation](student.ipynb#data_prep)
 
-Throughout model development process about 7% of the original 21597 of the data is discarded.
+Throughout model development process about 7% of the original 21597 of the data is discarded leaving 19,982 records in the final model.
 
-Immediately upon import recards 453 are immediately eliminated due to some '?' values that could not be justifiably replaced with any sort of filler such as 0 or 'NONE'. By the end of the model development process there were 19982 records remaining eliminating about 7% of the initial data overall. 
+Immediately upon import 453 records are immediately eliminated due to some '?' values that could not be justifiably replaced with any sort replacement such as 0 or 'NONE'. 
 
-Then null values and non-numerical values are re-encoded so that all values in the data set are numerical, and there are no missing values. The details of these transformations are available in the [Analysis notebook](student.ipynb). 
+Then any remaining null values and non-numerical values are re-encoded so that all values in the data set are numerical, and there are no missing values. The details of these transformations are available in the [analysis notebook](student.ipynb). 
 
 Next, in order to strengthen the model, outliers are eliminated. For this analysis an outlier is considered any record where the target variable (price) is greater than 3 standard deviations from the target variable mean. Using a statistical maximum (inter-quartile range * 1.5) instead was also investigated but it eliminated roughly half of the data which is liable to cause sampling issues.  
 
-In order to increase normality in both the target variable as well as the model itself the target variable is log transformed. It is important to note that because of this transformation any model coefficients should be interpreted is a change in percentage of the target variable, not in the fundamental units of the target variable (i.e. dollars). 
+In order to improve normality in both the target variable as well as the model itself the target variable is log transformed. It is important to note that because of this transformation any model coefficients should be interpreted as a change in percentage of the target variable, not in the fundamental units of the target variable (i.e. dollars). 
 
-At this point the model was strong, the set of features was somewhat limited. The 'zipcode' feature also still remained and was essentially uninterpretable due to the fact that it is not only categorical but nominal in nature. The next succesfuly better iteration was to extrapolate the proximity of a particular waterfront from the zipcode feature, and then one-hot encoding each waterfront location. The details of how this was performed is outlined below. 
+At this point the model was strong, and the set of features was somewhat limited. The 'zipcode' feature also still remained and was essentially uninterpretable due to the fact that it is not only categorical but nominal in nature. The next step of data manipulation performed was to extrapolate the proximity of a particular waterfront from the zipcode feature, and then one-hot encoding each waterfront location. The details of how this was performed is outlined below. 
 
 
 ## [Modeling](student.ipynb#modeling)
@@ -57,22 +59,22 @@ The iterative process included the above described data engineering techniques, 
 
 A small number of additional features are finally manually selected to be eliminated depending on how their absence affects aspects of the model most in need of improvement. 
 
-The final model appears to be fairly strong, although it is slightly leptokurtic and despite extremely low variance inflation factors throughout all of the model features, the condition number remains high indicating there may be some multi-colinearity present. If there is, its been extremely hard to locate.
+The final model appears to be fairly strong, although it is slightly leptokurtic and despite extremely low variance inflation factors throughout all of the model features, the condition number remains high indicating there may be some multi-colinearity present. If there is, it has been extremely difficult to locate.
 
-I have confidence that this is a strong model because as best I can tell it satisfies the four assumptions of linear regression as best as it can with the data availble. 
-- When plotted the model residuals show strong resemblence to the t-distribution satisfying the normality assumption, save only for slightly long tails. 
+I have confidence in this model because as best I can tell it satisfies the four assumptions of linear regression as best as it can with the data availble for the following reasons: 
+- When plotted the model residuals show strong resemblence to the normal distribution, satisfying the normality assumption save only for slightly long tails. 
 - The Drubin-Watson score is nearly 2.0 exactly, clearly demonstrating that the model satisfies the homoscedasticity assumption. 
-- The linearit assumption is difficult to validate with a single model alone, but I have been incresingly convinced that this model satisfies the linearity assumption thorughout the development of this model. 
-- The condition number is heavy which can be interpeted as an indaction of multi-colinearity. However there may be a scaling issue here, when the condion numebrs of each iteration of the model from the baseline up to the one in this notebook are plotted, the condition number of this model is 0 relative to its prototypical counterparts. Likewise for the Jarque Bera, and indication of normality. 
-- The kurtosis of this model is slightly outside the normally accepted range, throught the iterative process any attempts to address this issue drasticaly worsened all other indicators of model strenght. Additionally and kurtosis of 3.664 is the lowest of any iteration of the model so I have to run with it. 
+- The linearity assumption is difficult to validate with a single model alone, but rather by inspecting features as the model is developed. I have been consistently more convinced the model satisfies this assumption throught the model development process. 
+- The condition number is heavy which can be interpeted as an indication of multi-colinearity. However there may be a scaling issue here, when the condion numebrs of each iteration of the model from the baseline up to the final model are plotted, the condition number of the final model is 0 *relative* to its prototypical counterparts. Likewise for the Jarque Bera, and indication of normality. 
+- The kurtosis of this model is slightly outside the normally accepted range, throughout the iterative process any attempts to address this issue drasticaly worsened all other indicators of model strenght. Additionally and kurtosis of 3.664 is the lowest of any iteration of the model so it must be accepted at this point. 
+- Further more after several iterations of test sampling the mean sqaured error of test samples are nearly exactly the same as their training sampel counterparts, indicating that this model not only fits well the sample of data used in this analysis but also the population of analogous data that really exists. This is illustated in the figure below.
 
-Further more after several iterations of test sampling the mean sqaured error of test samples are nearly exactly the same as their training sampel counterparts, indicating that this model not only fits well the sample of data used in this analysis but also the population of analogous data that really exists. This is illustated in the figure below.
 ![img](./media/train_test_split_CDF.png)
 
 
 ## [Regression Results](student.ipynb#regression_results)
 
-The intention of this analysis to help Fliphouse, LLC. understand where to purchase properties as well as what physical aspects of the properties to consider before buying. 
+The intention of this analysis to help Fliphouse, LLC. understand where and when to purchase properties as well as what physical aspects of the properties to consider before buying. 
 
 In regard to where to purchase properties, the latitude that a property lies on seems to be the strongest predictor of price. For every addition degree north, a properties price will increase by 1.47%. However the properties in this data set cover a range less than 1 degree. One degree of latittude is roughly 69 miles, and the range covered by the model data is only abouty 43 miles. So we can consider this to mean that aproximately for every additional mile north, the price of a property increases by 0.034%
 
@@ -92,7 +94,7 @@ The figure below illustrates the change in select model performance metrics acro
 
 ## [Conclusions](student.ipynb#conclusion)
 
-For the purposes of the client, Fliphouse, LLC. I recommend looking at properties on Lake Union, or north of downtown Seattle and on a waterfront, with a view of said waterfront. Furthermore I recommend finding properties that satisfty the aformentioned geogrpahic stipulations that are in need of repair and potentially do not satisfy city building codes. The best course of action according to this analysis would be to bring the building and property up to code and beyond and perhaps add one or two bathrooms to the structure. 
+For the purposes of Fliphouse, LLC penetrating the King County realestate market. I recommend looking at properties on Lake Union, or north of downtown Seattle that are also on a waterfront, preferably with a view of said waterfront. Furthermore I recommend finding properties that satisfty the aformentioned geogrpahic stipulations that are in need of repair and potentially do not satisfy city building codes. The best course of action according to this analysis would be to bring the building and property up to code and beyond and additionally perhaps add one or two bathrooms to the home (perhaps an outdoor shower near the waterfront access). 
 
 The figure below is meant to hint at how much each answer to the various questions contributes to the price of a realestate listing in Kings County, Washington. 
 ![img](./media/final_model_treemap.png)
@@ -100,9 +102,10 @@ The figure below is meant to hint at how much each answer to the various questio
 
 ### Next Steps
 
-It is worth one-hot encoding someof the other categorical features such as view and grade. Also, investigating eliminating outliers based on category (e.g. there are only 27 data points with a grade of 4, and only 1 with a grade of 3 or less.). Some of the leptokurtosis may be address by continuing to eliminate outliers using this method. 
+It is worth one-hot encoding some of the other categorical features such as view and grade. Also, investigating eliminating outliers based on category (e.g. there are only 27 data points with a grade of 4, and only 1 with a grade of 3 or less.). Some of the leptokurtosis may be address by continuing to eliminate outliers using this method. 
 
 This dataset covers a timespan of roughly one year, it would certainly strengthen the model to include analogous data from other years both before and after. 
+
 
 ## For More Information
 
@@ -116,6 +119,7 @@ For additional info, contact Zeth Abney at [zethusabney@gmail.com](mailto:zethus
 ├── data
 ├── LEARNCO
 ├── media
+├── presentation
 ├── EDA.ipynb
 ├── model_dictionary.md
 ├── README.md

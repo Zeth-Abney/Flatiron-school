@@ -1,7 +1,4 @@
-
-
-# Feature Names and details for King County realestate regression model. 
-
+# Feature Names and Details for King County Realestate Regression Model. 
 
 
 * `bathrooms` - Number of bathrooms in the house. 
@@ -14,49 +11,38 @@
 
 
 * `grade` 
-    - 1-3 Falls short of minimum building standards. Normally cabin or inferior structure. 
-        - 1 data point
+    - 1-3 (1 data point) Falls short of minimum building standards. Normally cabin or inferior structure. 
 
-    - 4 Generally older, low quality construction. Does not meet code.
-        - 27 data points
+    - 4 (27 data points) Generally older, low quality construction. Does not meet code.
 
-    - 5 Low construction costs and workmanship. Small, simple design.
-        - 235 data points
+    - 5 (235 data points) Low construction costs and workmanship. Small, simple design.
 
-    - 6 Lowest grade currently meeting building code. Low quality materials and simple designs.
-        - 1,996 data points
+    - 6 (1,996 data points) Lowest grade currently meeting building code. Low quality materials and simple designs.
 
-    - 7 Average grade of construction and design. Commonly seen in plats and older sub-divisions.
-        - 8,775 data points
+    - 7 (8,775 data points) Average grade of construction and design. Commonly seen in plats and older sub-divisions.
 
-    - 8 Just above average in construction and design. Usually better materials in both the exterior and interior finish work.
-        - 5,808 data points
+    - 8 (5,808 data points) Just above average in construction and design. Usually better materials in both the exterior and interior finish work.
 
-    - 9 Better architectural design with extra interior and exterior design and quality.
-        - 2,258 data points
+    - 9 (2,258 data points) Better architectural design with extra interior and exterior design and quality.
 
-    - 10 Homes of this quality generally have high quality features. Finish work is better and more design quality is seen in the floor plans. Generally have a larger square footage.
-        - 747 data points
+    - 10 (747 data points) Homes of this quality generally have high quality features. Finish work is better and more design quality is seen in the floor plans. Generally have a larger square footage.
 
-    - 11 Custom design and higher quality finish work with added amenities of solid woods, bathroom fixtures and more luxurious options.
-        - 130 data points
+    - 11 (130 data points) Custom design and higher quality finish work with added amenities of solid woods, bathroom fixtures and more luxurious options.
 
-    - 12 Custom design and excellent builders. All materials are of the highest quality and all conveniences are present.
-        - 5 data points
+    - 12 (5 data points) Custom design and excellent builders. All materials are of the highest quality and all conveniences are present.
 
-    - 13 Generally custom designed and built. Mansion level. Large amount of highest quality cabinet work, wood trim, marble, entry ways etc.
-        - 0 data points
+    - 13 (0 data points) Generally custom designed and built. Mansion level. Large amount of highest quality cabinet work, wood trim, marble, entry ways etc.
 
 
 * `sqft_living15` - The average sqaure footage of living space for the nearst 15 other homes. (Minimum 399, maximum 4950, mean 1921)
 
 
 * `view` - Quality of view from house on a 5 point scale starting at 0.
-    - 0: poor or no view, 18459 data points
-    - 1: fair view, 270 data points
-    - 2: Average, 777 data points
-    - 3: Good, 334 data points
-    - 4: Excellent, 142 data points
+    - 0: poor or no view (18459 data points)
+    - 1: fair view (270 data points)
+    - 2: Average (777 data points)
+    - 3: Good (334 data points)
+    - 4: Excellent (142 data points)
 
     * Includes views of 
     {'Mt. Rainier': (46.852886, -121.760374),
@@ -95,20 +81,30 @@
 
 * `waterfront locations` - Whether the house is in the same zipcode as a particular waterfront. (2023 total data points)
 
-    Lake Union(82 data points): 98109
+    Lake Union (82 data points): 98109
 
-    Lake Sammamish(1036 data points)): 98074,98075,98029
+    Lake Sammamish (1036 data points)): 98074,98075,98029
 
-    Puget Sound(379 data points): 98071,98083,98013,98070,98031,98131,98063,98195,98207,98190
+    Puget Sound (379 data points): 98071,98083,98013,98070,98031,98131,98063,98195,98207,98190
 
-    Duwamish(262 data points): 98168
+    Duwamish (262 data points): 98168
 
-    Lake Washington(444 data points): 98072,98077
-
-
+    Lake Washington (444 data points): 98072,98077
 
 
+* `Piechart / treemap reference` - a guide to which features are grouped together for the purposes of the treemap and piechart visualizations at the end of student.ipynb
+
+    - How far north? lat,
+    - On a waterfront? waterfront,
+    - Which waterfront? (sum of absolute values) waterfront_Lake Union,waterfront_Lake Sammamish,waterfront_Puget Sound,waterfront_Duwamish,'waterfront_Lake Washington,
+    - How much repair needed? (sum of absolute values) condition, grade,
+    - How many bathrooms? bathrooms,
+    - Good view? view,
+    - When? (sum of absolute values) sale_date,sale_month
 
 
-  * For more details see the [King County Assessor Website](https:May//info.kingcounty.gov/assessor/esales/Glossary.aspx?type=r#w) 
+
+  * For more details see the [King County Assessor Website](https:May//info.kingcounty.gov/assessor/esales/Glossary.aspx?type=r#w)
+  * For more info on the analysis please email [Zeth Abney](zethusabney@gmail.com)
+
 
