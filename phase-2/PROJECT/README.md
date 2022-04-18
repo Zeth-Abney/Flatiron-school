@@ -6,9 +6,9 @@
 
 Please fill out:
 * Student name: Zeth Abney
-* Student pace: full time
-* Scheduled project review date/time: !!!TBA!!!
-* Instructor name: Matt Carr
+* Student pace: Flex (40 weeks)
+* Scheduled project review date/time: 04/20/2022
+* Instructor name: Matt Bombard
 * Blog post URL: !!!TBA!!!
 
 ## Overview
