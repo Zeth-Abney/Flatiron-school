@@ -12,12 +12,12 @@ Please fill out:
 * Blog post URL: !!!TBA!!!
 
 ## Overview
-<img src=\media\data_understanding.png alt="data understanding graphic" title="Data Understanding"/>
+<img src='\media\data_understanding.png' alt="data understanding graphic" title="Data Understanding"/>
 
 Fliphouse, LLC, a family owned business seeking to expand its market share is in the business of "flipping" houses. Fliphouse will strategically purchase a  residential property, renovated it and then rent or sell it with the hopes of generating positive revenue by either renting or re-selling the property. Fliphouse seeks to develop a new competitive edge throughout this phase of expansion by becomming a data-driven company. For these reasons Fliphouse has decided to hire the consulting services of a data scientist to provide data-driven recommendations on how to enter and behave within the target market. 
 
 ## Business understanding
-<iframe src="https://giphy.com/embed/l1KcZ31BiyRuQLVQY" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/doug-renovation-gap-hgtv-demo-l1KcZ31BiyRuQLVQY">via GIPHY</a></p>
+<img src='https://giphy.com/embed/l1KcZ31BiyRuQLVQY'>
 
 In this phase of expansion, Fliphouse seeks to enter the realestate market of the pacific northwest, and specifically Seattle Washington and the surrounding area (i.e. Kings County). Before begining any projects in the area, FlipHouse decision makers need to better understand how to determine the opportunity cost, and potential returns for any investments made in Kings County, as well as how to maximize those returns. The oportunity cost and potential returns can indeed be determined by understanding how time, physical location, and physical condition and attributes all affect the price of a real estate property. 
 
@@ -49,7 +49,7 @@ At this point the model was strong, the set of features was somewhat limited. Th
 
 
 ## [Modeling](student.ipynb#modeling)
-<img src=\media\model_residuals_CDF.png, alt='Model residuals accross iterations' title= 'Model Residuals CDF'>
+<img src='\media\model_residuals_CDF.png', alt='Model residuals accross iterations' title= 'Model Residuals CDF'>
 
 An extensive iterative process was conducted to achieve the final model, to see this process in detail please review the [exploratory analysis notebook ](EDA.ipynb). 
 
@@ -68,7 +68,7 @@ I have confidence that this is a strong model because as best I can tell it sati
 <img src=\media\model_performance_lineplot.png alt="Model performance metrics accross iterations" title="Performance metrics through iterations" />
 
 Further more after several iterations of test sampling the mean sqaured error of test samples are nearly exactly the same as their training sampel counterparts, indicating that this model not only fits well the sample of data used in this analysis but also the population of analogous data that really exists. This is illustated in the figure below.
-<img src=\media\train_test_split_CDF.png alt="CDF plots of model residuals of training and test samples" title="Train-Test CDF" />
+<img src='\media\train_test_split_CDF.png' alt="CDF plots of model residuals of training and test samples" title="Train-Test CDF" />
 
 
 ## [Regression Results](student.ipynb#regression_results)
@@ -93,7 +93,7 @@ When is the best time to by is somewhat unclear. The model suggests that prices 
 For the purposes of the client, Fliphouse, LLC. I recommend looking at properties on Lake Union, or north of downtown Seattle and on a waterfront, with a view of said waterfront. Furthermore I recommend finding properties that satisfty the aformentioned geogrpahic stipulations that are in need of repair and potentially do not satisfy city building codes. The best course of action according to this analysis would be to bring the building and property up to code and beyond and perhaps add one or two bathrooms to the structure. 
 
 The figure below is meant to hint at how much each answer to the various questions contributes to the price of a realestate listing in Kings County, Washington. 
-<img src=\media\final_model_treemap.png alt="How well the model can common quetions" title="Model Recommendation Treemap" />
+<img src='\media\final_model_treemap.png' alt="How well the model can common quetions" title="Model Recommendation Treemap" />
 
 
 ### Next Steps
