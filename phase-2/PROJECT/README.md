@@ -16,7 +16,7 @@ Please fill out:
 Fliphouse, LLC, a family owned business seeking to expand its market share is in the business of "flipping" houses. Fliphouse will strategically purchase a  residential property, renovated it and then rent or sell it with the hopes of generating positive revenue by either renting or re-selling the property. Fliphouse seeks to develop a new competitive edge throughout this phase of expansion by becomming a data-driven company. For these reasons Fliphouse has decided to hire the consulting services of a data scientist to provide data-driven recommendations on how to enter and behave within the target market. 
 
 ## Business understanding
-![img](https://giphy.com/embed/l1KcZ31BiyRuQLVQY)
+![img](./media/house_flip.png)
 
 In this phase of expansion, Fliphouse seeks to enter the realestate market of the pacific northwest, and specifically Seattle Washington and the surrounding area (i.e. Kings County). Before begining any projects in the area, FlipHouse decision makers need to better understand how to determine the opportunity cost, and potential returns for any investments made in Kings County, as well as how to maximize those returns. The oportunity cost and potential returns can indeed be determined by understanding how time, physical location, and physical condition and attributes all affect the price of a real estate property. 
 
