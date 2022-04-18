@@ -102,14 +102,14 @@ The figure below is meant to hint at how much each answer to the various questio
 
 ### Next Steps
 
-It is worth one-hot encoding some of the other categorical features such as view and grade. Also, investigating eliminating outliers based on category (e.g. there are only 27 data points with a grade of 4, and only 1 with a grade of 3 or less.). Some of the leptokurtosis may be address by continuing to eliminate outliers using this method. 
+It is worth one-hot encoding some of the other categorical features such as view and grade. Also, investigating eliminating outliers based on category (e.g. there are only 27 data points with a grade of 4, and only 1 with a grade of 3 or less.). Some of the leptokurtosis may be addressed by continuing to eliminate outliers using this method. 
 
 This dataset covers a timespan of roughly one year, it would certainly strengthen the model to include analogous data from other years both before and after. 
 
 
 ## For More Information
 
-See the full analysis in the [Jupyter Notebook](student.ipynb) or review this [presentation]().
+See the full analysis in the [analysis notebook](student.ipynb) or review this [presentation](./presentation/presentation.pdf).
 For additional info, contact Zeth Abney at [zethusabney@gmail.com](mailto:zethusabney@gmail.com)
 
 
