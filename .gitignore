@@ -1,0 +1,11 @@
+*.DS_Store
+*.db
+
+*.ipynb_checkpoints
+*__pycache__
+*.pyc
+*.pytest_cache
+
+**/zoom
+**/presentation
+**/data
