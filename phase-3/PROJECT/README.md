@@ -9,7 +9,7 @@ Please fill out:
 * Student pace: Flex 
 * Scheduled project review date/time: 07/08/2022 12:00pm
 * Instructor name: Morgan Jones
-* Blog post URL: !!!TBA!!!
+* Blog post URL: [YouTube](https://www.youtube.com/playlist?list=PLEeKclZ1rcm_sYLz4rtNlv5PlWbln_0Zx)
 
 
 ![img](./images/Header.png)
@@ -17,8 +17,10 @@ Please fill out:
 ## Overview 
 Sigma Airlines is the premiere provider in public aviation transportion, constantly striving to provide the best value in customer experience and comfort. In order to contiune leading the industry in customer satisfaction, Sigma Airlines is taking steps to make more data-driven decions around how to continue improving the customer experience and improve satisfaction.  
 
+
 ## Business Case
 A fundamental goal of the company is to deepen market penetration by converting non-habitual customers ('disoloyal') into habitually returning customers ('loyal'). In order to understand what might cause a disloyal customer to convert*into a loyal customer, its important to understand what differs between them in terms of the flights they are on and their impression of them. In other words if we can better understand our customers' *mood* about certain types of flights, we can better understand what improvements will make the greatest impression and therefore have the strongest impact on overall customer satisfaction. Using the [data](./data/) collected with machine learning technology, it is possible to discover patterns between these two target groups (i.e. loyal and disloyal) and perhaps identify the *risk factors* of customer "churn". The goal of this project will be to utilize machine learning in this fassion and make recomendations on what specific aspects of the customer experience to focus on improving. 
+
 
 ## Data Overview
 ![img](./images/take_off.png)
@@ -67,6 +69,7 @@ By F1 score it appears that the model was improving significantly with each iter
 
 The final model's F1 score when measured on the test sample is 0.94, and its accuracy scored 0.98, which is quite acceptable for our purposes. 
 
+
 ## Model Evaluation
 Afte developing a final model, the next step was to understand what it bases its predictions on and how it classifies customers as "loyal" or "disloyal". The model appeared to rely mostly on a customers age and the type of travel (business or personal), with strong consideration of the flight distance and the customers overall satisfaction (a boolean, 1-satisfied, 0-disatisfied). It should be noted that the overall satisfaction feature is probably a proxy to the set of survey response features, so the survey in aggregate should probably be regarded with as much weight as the overall satisfaction bool value. 
 
@@ -108,6 +111,7 @@ Improving gate location as well as the convenience of the departure and arrival 
 
 It is best to focus on improving inflight services like wifi and entertainment, refreshments and seat comfort, and the UX of pre-boarding online services for business flights and youn adults flying less than 3000 miles.
 
+
 ## Next steps
 Within this dataset gender is almost perfectly balanced making it an ideal candidate for classification. It is worth investigating how satisfaction of different aspects of the customer experience differs between genders. This data set contains information about the distance of the flight itself, and the customers satsifaction with the gate location, but it does not contain information on what airport is being flown out of or into, nor what the specific gate number(s) are. Having this information would make it possible to better understand how customer satisfaction differs throughout the various interest groups investigated, in the context of a specific airport or even gate. 
 
@@ -116,6 +120,7 @@ Within this dataset gender is almost perfectly balanced making it an ideal candi
 See the full analysis in the [final notebook](./student.ipynb) 
 For additional info, contact Zeth Abney at [zethusabney@gmail.com](mailto:zethusabney@gmail.com)
 
+
 ## Repository Structure
 ```
 ├── development (.ipynb  files)
@@ -123,5 +128,5 @@ For additional info, contact Zeth Abney at [zethusabney@gmail.com](mailto:zethus
 ├── review (.pdfs of iPython notebooks)
 ├── dictionary.md (data dictionary)
 ├── README.md
-└── student.ipynb
+└── student.ipynb (final analysis notebook) 
 ```
