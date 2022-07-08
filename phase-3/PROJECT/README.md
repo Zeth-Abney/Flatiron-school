@@ -107,3 +107,21 @@ Specific aspects of the customer experience on those flights that I predict will
 Improving gate location as well as the convenience of the departure and arrival times would have a great impact according to my analysis of the data, however I do not believe it would be economical to implement changes here because it would require significant coordination and concession by and width other airlines as well as the FAA. 
 
 It is best to focus on improving inflight services like wifi and entertainment, refreshments and seat comfort, and the UX of pre-boarding online services for business flights and youn adults flying less than 3000 miles.
+
+## Next steps
+Within this dataset gender is almost perfectly balanced making it an ideal candidate for classification. It is worth investigating how satisfaction of different aspects of the customer experience differs between genders. This data set contains information about the distance of the flight itself, and the customers satsifaction with the gate location, but it does not contain information on what airport is being flown out of or into, nor what the specific gate number(s) are. Having this information would make it possible to better understand how customer satisfaction differs throughout the various interest groups investigated, in the context of a specific airport or even gate. 
+
+
+## For More Information
+See the full analysis in the [final notebook](./student.ipynb) 
+For additional info, contact Zeth Abney at [zethusabney@gmail.com](mailto:zethusabney@gmail.com)
+
+## Repository Structure
+```
+├── development (.ipynb  files)
+├── images (.png files mostly)
+├── review (.pdfs of iPython notebooks)
+├── dictionary.md (data dictionary)
+├── README.md
+└── student.ipynb
+```
