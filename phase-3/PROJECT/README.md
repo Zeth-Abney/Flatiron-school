@@ -32,7 +32,7 @@ A [data dictionary](./data/dictionary.md) was provided along with the dataset, w
 To summarize:  
     - The selected target feature is the column titled "Customer Type".  
     - The target feature is binary (Loyal/disloyal), and the target class is "disloyal". Disloyal is represented as 1, after one-hot-encoding.  
-    - The target class is highly imbalanced with only about 18% of the raw training data being labeled as disloyal. The training data only is resampled using SMOTEENN, and ensemble of oversampling the target class with SMOTE and undersampling the non-target class with ENN.  
+    - The target class is highly imbalanced with only about 18% of the raw training data being labeled as disloyal. The training data only is resampled using SMOTE.  
     - There are 4 features used that contain continuous data, providing details of the flight itself.  
     - There are another 18 features used that contain categorical data providing information on the customer themself and their trip (e.g. gender, purpose for travel) as well as the survey responses the customer provided.  
 
@@ -40,16 +40,17 @@ To summarize:
 ## Preprocessing Methods
 The preprocessing used in this project spans two notebook files, located in the [development folder](./development/). The first, [EDA](./development/EDA.ipynb), covers the initial exploratory analysis, and prototyping various data cleaning and encoding methods. The second, [resampling](./development/resampling.ipynb), covers my process of experimenting with various resampling methods to address the issue of target class imbalance.
 
-My general strategy to deal with the imbalance was to build a series of logistic regression models all with the same default hyperparameters, trained on the same data with the same preprocessiong, and the only difference being the algorithm used to resample the data. I eventually decided on the [SMOTEENN](https://imbalanced-learn.org/stable/references/generated/imblearn.combine.SMOTEENN.html) algorithm from the imblearn library, it is an ensemble method that combines minority oversampling with SMOTE and majority undersampling with Edited Nearest Neighbors. Both algorithms are distance based, so there is enough data between classes to train the model sufficiently however it maintains fidelity to the original relative rank of each class (i.e. the minority is still the minority). 
+My general strategy to deal with the imbalance was to build a series of logistic regression models all with the same default hyperparameters, trained on the same data with the same preprocessiong, and the only difference being the algorithm used to resample the data. I eventually decided on the [SMOTE](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html). I made this decision based on its impact on F1-score overall and that the gap between its train and test F1-scores was much narrower than the rest. 
+
 ![img](./images/resampling_pies.png)
 
-I focused primarily on F1 score when evaluating model iterations, I also took area under the ROC curve into consideration, however the dataset is fairly large so later on in the project his becomes less helpful. 
+I focused primarily on F1 score when evaluating model iterations, I also took area under the ROC curve into consideration, however the dataset is fairly large so later on in the project this becomes less helpful. 
 
 Fig. 1|Fig. 2
 -|-
 ![F1 Scores](./images/f1_resamples.png "F1 Score by Resample Strategy")|![Training ROC AUC](./images/resample_train_rocauc.png "ROC AUC by Resample Strategy")
 
-I was especially impressed that SMOTEENN was also able to maintain the class weights of categorical features and the distributions of continuous features. While the total volume of data increased, the shape and density of the data genereally did not, so the resampled dataset should be highly reflective of the original data. 
+Another advantage to SMOTE was its ability to maintain the class weights of categorical features and the distributions of continuous features. While the total volume of data increased, the shape and density of the data genereally did not, so the resampled dataset should be highly reflective of the original data. 
 
 ![img](./images/resample_non_survey.png)
 ![img](./images/resample_survey.png)
@@ -57,7 +58,7 @@ I was especially impressed that SMOTEENN was also able to maintain the class wei
 
 
 ## Modeling Methods
-After narrowing down the resample strategy to SMOTEENN, my next goal was to discover the best tree based classification algorithm to build the final model with. I used SciKit-Learn's GridsearchCV function to find the optimum hyperparameters for each tree-based model, and then compared the best of each type of model built, again focusing primarily on F1 score. I also considered the area under ROC curve, but at this point all the model's were *pretty good* and the dataset is quite large so it wasn' incredibly telling at this point. 
+After narrowing down the resample strategy to SMOTE, my next goal was to discover the best tree based classification algorithm to build the final model with. I used SciKit-Learn's GridsearchCV function to find the optimum hyperparameters for each tree-based model, and then compared the best of each type of model built, again focusing primarily on F1 score. I also considered the area under ROC curve, but at this point all the model's were *pretty good* and the dataset is quite large so it wasn' incredibly telling at this point. 
 
 Fig. 3|Fig. 4
 -|-
