@@ -25,14 +25,19 @@ For more details on the data and the preprocessing steps take please review the 
 # Modeling Methods
 The modeling process, demonstrated in detail in the [Modeling notebook](modeling.ipynb), consisted of first building a baseline model, and then measuring more complex and sophisticated iterations against the initial basline model.  
 
+## Model Architecture
 The first major iteration was experimenting with the models architecture itself. This was iterated on later throught the model development process and it was eventually decided on that a relatively simple model archtecture was the best direction to take. 
 
+## Model Training Protocol
 The next major iteration was experimenting with more robust training paramets (specifically within .fit() function). Various arrangements of steps per epochs, total number of epochs and validation steps per epoch were all experimented with. Eventually it was discoverd that the model tends to learn extremely fast, so the final model was trained on a relatively small amount of epochs (while also using an early stoppage technique) and a moderate amount of steps per epoch. 
 
+## Network Regularization
 The third major phase of model development was experimenting with various regularization techniques. The least effective of which was dropout regularization (dropping out random nodes from certain layers), this technique made the key performance indicators (KPIs) extremely eradic and not obviously converging on any values or approaching any limits (i.e. lots of zig zigs, not a lot of curves). Hoever L2 regularization showed clear benefits and after some experimentation a weight of 0.005 showed to be the most optimal.  
 
+## Optimization Algorithm
 The fourth major iteration was experimenting with various optimization algorithms. Up until this point in the project there had been none specified and keras was using whatever default algorithm it assigns (I have so far been unable to find documentation specifying exactly what algorithm that is). After testing three different algorithms, [stochastic gradient descent](https://keras.io/api/optimizers/sgd/), [adaptive momentum estimation](https://keras.io/api/optimizers/adam/), and [adaptive delta](https://keras.io/api/optimizers/adadelta/), it was discoverd that Adam (adaptive moment estimation) was the best algorithm for this model and this project.
 
+## Learning Rate
 The fifth and final iteratation of model development was experimenting with various learning rates of the Adam optimization algorithm. After some experimentation it was determined that the optimal learning rate using adam is .01. Examples of each learning rate tested are not available in the modeling notebook, I essentially re-ran the exact same at various learning rates and took note of the KPIs, this was in the interest of the readibility of the notebook. The learning rate parameter can be easiliy located in the "Learning Rate and Early Stopage" section of the modeling notebook and can be easily changed and re-ran if you are so-inclined. 
 
 # Model Evaluation
