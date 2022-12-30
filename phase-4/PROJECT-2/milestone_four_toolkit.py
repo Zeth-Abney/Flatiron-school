@@ -72,7 +72,7 @@ def evaluate_model_performance(model,data_generator,verbose=True):
     y_pred = np.round(model.predict(X_test))
 
     # evaluate KPIs
-    loss, accuracy = model.evaluate(X_test,y_test)
+    # loss, accuracy = model.evaluate(X_test,y_test)
 
     # calculate the confusion matrix and classification report
     matrix = confusion_matrix(y_test, y_pred)
