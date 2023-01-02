@@ -21,25 +21,25 @@ A computer vision based machine learning model (ML), once properly trained and o
 In other words, the business goal of this project is to be absorbed by an existing software provider that can integrate this AI model as the underlying engine for a new tool and/or feature in their existing, deployed software. The benefit to said software provider is to circumvent the AI development process and focus on areas they are already expert at such as UI/UX, backend, database, etc. This allows the software provider to further improve their product, without pioneering into totally new territory; likewise allows myself as a datascientist to make a meaningful and profitable impact without the cost of learning or hiring for a litany of adjacent skill sets.  
 
 # ![img](images/presentation_assets/Data%20Overview.png)
-This project utilizes a dataset of several thousand images of chest x-ray scans. As show in the [EDA notebook](eda.ipynb), class balance for each sample split is as follows: Training set is 74% true positives, test set is 63% true positives, and validation set is 50% true positives.
+This project utilizes a dataset of several thousand images of chest x-ray scans from a women's and children's hospital in Guangzhou, China. As shown in the [EDA notebook](eda.ipynb), class balance for each sample split is as follows: Training set is 74% true positives, test set is 63% true positives, and validation set is 50% true positives.
 
 ![class balance plot](images/class-balance.png)
 
-This dataset originally comes from [Mendeley Data](https://data.mendeley.com/datasets/rscbjbr9sj/2) and it was directly sourced for this project from [Kaggle.com](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) as the kaggle API on the command line. The original kaggle post describes the dataset as follows:
+This dataset originally comes from [Mendeley Data](https://data.mendeley.com/datasets/rscbjbr9sj/2) and it was directly sourced for this project from [Kaggle.com](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) using the kaggle API on the command line. The original kaggle post describes the dataset as follows:
 
 > The dataset is organized into 3 folders (train, test, val) and contains subfolders for each image category (Pneumonia/Normal). There are 5,863 X-Ray images (JPEG) and 2 categories (Pneumonia/Normal). Chest X-ray images (anterior-posterior) were selected from retrospective cohorts of pediatric patients of one to five years old from Guangzhou Women and Children’s Medical Center, Guangzhou. All chest X-ray imaging was performed as part of patients’ routine clinical care. For the analysis of chest x-ray images, all chest radiographs were initially screened for quality control by removing all low quality or unreadable scans. The diagnoses for the images were then graded by two expert physicians before being cleared for training the AI system. In order to account for any grading errors, the evaluation set was also checked by a third expert. 
 
 # ![Data Preparation](images/presentation_assets/Data%20Prep.png)
 ![img](images/presentation_assets/xray%20examples.png)
 
-As mentioned above the data comes already sampled for training and validation. Additionaly the originators of the data have already performed quality control and binary class labeling by qualified professionals. I elected not to utilize any sort of resampling methods due to the sufficient volume of data (i.e. even the minority class is composed of several thousand data points). Therefore the only data preparations steps left were to prepare the image files to be "readable" to a Keras CNN, this was achieved using the Keras [ImageDataGenerator](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator) class along with its related flow_from_directory() method to read the jpg files into the generator. Additionally, the data is normalized upon instatiation of the generator object; pixel values by default are on a scale of 0 (black) to 255 (white), it is standard practice to normalize this data format to a scale of 0-1
+As mentioned above the data comes already split into three distinct samples (Train, test, and validate). Additionaly the originators of the data have already performed quality control and binary class labeling by qualified professionals. There was no use of resampling methods throughout this project due to the sufficient volume of data (i.e. even the minority class is composed of several thousand data points). Therefore the only data preparations steps left were to prepare the image files to be "readable" to a Keras CNN, this was achieved using the Keras [ImageDataGenerator](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator) class along with its related flow_from_directory() method to read the jpg files into the generator. Upon instantiation of the generator objects the data is normalized so that all first order tensors are scaled 0-1 instead of 0-255 (standard pixel values), and is set to grayscale so that each image is represented by a two dimensional tensor with a single color channel instead of three.
 
 One key advantage to utilizing the ImageDataGenerator class is that it allows the X and y data to be readable by other Keras function and methods with a single variable. The generator objects all share the same parameters; the color mode is set to grayscale, reducing unnecessary volume and complexity of the input data, the class mode is set to binary, reflecting the binary classification requirements of this project, images are resized to 150 by 150 pixels, and the batch size was originally 16 but then reduced to 8 as it appeared to improve the models ability to learn. 
  
 For more details on the data and the preprocessing steps take please review the [EDA notebook](eda.ipynb) 
 
-# ![Modeling Methodsw](images/presentation_assets/Modeling%20Method.png)
-The modeling process, demonstrated in detail in the [Modeling notebook](modeling.ipynb), consisted of first building a baseline model, and then measuring more complex and sophisticated iterations against the initial basline model.  
+# ![Modeling Methods](images/presentation_assets/Modeling%20Method.png)
+The modeling process, demonstrated in detail in the [Modeling notebook](modeling.ipynb), consisted of first building a baseline model with a lean and arbitrary architecture and training protocol, and then measuring more complex and sophisticated iterations against the initial basline model. The measures used primarily were recall and F1-score.
 
 ## Model Architecture
 The first major iteration was experimenting with the architecture of the model itself. This was iterated on later throught the model development process and it was eventually decided on that a relatively simple model architecture was the best direction to take. 
@@ -113,6 +113,6 @@ C: collect data on the tools usability and real-world diagnostic performance, an
 ├── data (x-ray images organized by class intp subdirectories)  
 ├── images (jpg and png files used for presentation and aesthetics)  
 ├── presentation (contains pptx files used for non-technical presentation, and pdf files for project submission)     
-├── eda.ipynb (exploratory analysis, previews data and tests modeling conventions)  
+├── eda.ipynb (exploratory analysis, previews data and tests modeling conventions)    
 ├── modeling.ipynb (contains all interations of the model and the respective analysese)    
 └── README.md  
