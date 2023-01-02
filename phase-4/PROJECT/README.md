@@ -2,7 +2,7 @@
 
 Author: [Zeth Abney](https://www.linkedin.com/in/zeth-abney/)  
 Pace: Flex
-Project Review data & time:   TBA
+Project Review data & time:   TBA  
 Instructor Name: Morgan Jones  
 Blog Post URL:  in-progress
 
