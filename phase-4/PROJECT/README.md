@@ -1,7 +1,7 @@
 # Phase-4 Milestone Project: Computer Vision Modeling for Pneumonia Diagnosis
 
 Author: [Zeth Abney](https://www.linkedin.com/in/zeth-abney/)  
-Pace: Flex
+Pace: Flex  
 Project Review data & time:   01/05/2023 11:00 AM    
 Instructor Name: Morgan Jones  
 Blog Post URL:  in-progress
