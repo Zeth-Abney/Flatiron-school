@@ -8,7 +8,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 
 
 # calculate loss, accuracy, recall, and a confusion matrix array
-def evaluate_model_performance(model,data_generator):
+def evaluate_model(model,data_generator):
     """
     Takes in a keras model object and ImageDataGenerator object
     Converts dataset from generator into a 3D numpy array
@@ -38,7 +38,7 @@ def evaluate_model_performance(model,data_generator):
     report = classification_report(y_test_arr,y_pred)
     
     print("Done!")
-    return (np.round(recall,4), np.round(loss,2)), report, matrix, (y_pred, y_test_arr)
+    return (np.round(recall,4), np.round(loss,2)), report, matrix, (y_test_arr, y_pred)
 
 # visualizes recall, loss and accuracy accross throughout training history
 def viz_training_history(model_history,recall_num:None):
@@ -167,7 +167,7 @@ def viz_confusion_matrix(confusion_matrix_array:np.array):
 # list available functions
 def toolkit_list():
     mylist = [
-              "evaluate_model_performance(model,data_generator)",
+              "evaluate_model(model,data_generator)",
               "viz_training_history(model_history,recall_num:None)",
               "viz_class_balance_comparison(y_test,y_pred)",
               "viz_confusion_matrix(confusion_matrix_array:np.array)"
