@@ -20,7 +20,7 @@ A computer vision based machine learning model (ML), once properly trained and o
 
 In other words, the business goal of this project is to be absorbed by an existing software provider that can integrate this AI model as the underlying engine for a new tool and/or feature in their existing, deployed software. The benefit to said software provider is to circumvent the AI development process and focus on areas they are already expert at such as UI/UX, backend, database, etc. This allows the software provider to further improve their product, without pioneering into totally new territory; likewise allows myself as a datascientist to make a meaningful and profitable impact without the cost of learning or hiring for a litany of adjacent skill sets.  
 
-# ![img](images/presentation_assets/Data%20Overview.png)
+# ![Data Source](images/presentation_assets/Data%20Overview.png)
 This project utilizes a dataset of several thousand images of chest x-ray scans from a women's and children's hospital in Guangzhou, China. As shown in the [EDA notebook](eda.ipynb), class balance for each sample split is as follows: Training set is 74% true positives, test set is 63% true positives, and validation set is 50% true positives.
 
 ![class balance plot](images/class-balance.png)
