@@ -21,13 +21,16 @@ A computer vision based machine learning model (ML), once properly trained and o
 In other words, the business goal of this project is to be absorbed by an existing software provider that can integrate this AI model as the underlying engine for a new tool and/or feature in their existing, deployed software. The benefit to said software provider is to circumvent the AI development process and focus on areas they are already expert at such as UI/UX, backend, database, etc. This allows the software provider to further improve their product, without pioneering into totally new territory; likewise allows myself as a datascientist to make a meaningful and profitable impact without the cost of learning or hiring for a litany of adjacent skill sets.  
 
 # ![Data Source](images/presentation_assets/Data%20Overview.png)
-This project utilizes a dataset of several thousand images of chest x-ray scans from a women's and children's hospital in Guangzhou, China. As shown in the [EDA notebook](eda.ipynb), class balance for each sample split is as follows: Training set is 74% true positives, test set is 63% true positives, and validation set is 50% true positives.
+This project utilizes a dataset of 5,856 jpeg images of chest x-ray scans from a women's and children's hospital in Guangzhou, China. As shown in the [EDA notebook](eda.ipynb), class balance for each sample split is as follows: Training set is 74% true positives, test set is 63% true positives, and validation set is 50% true positives. The training sample contains 5216 images, the test contains 624 images, and the validation set contains 16. 
 
-![class balance plot](images/class-balance.png)
+| Normalized Class Balance | Relative Sample Sizes |
+| ------------- | ------------- |
+|![class balance plot](images/normalized_sample_class_balance.png)|![Class balance pie](images/pie_sample_class_balance.png)|
+
 
 This dataset originally comes from [Mendeley Data](https://data.mendeley.com/datasets/rscbjbr9sj/2) and it was directly sourced for this project from [Kaggle.com](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) using the kaggle API on the command line. The original kaggle post describes the dataset as follows:
 
-> The dataset is organized into 3 folders (train, test, val) and contains subfolders for each image category (Pneumonia/Normal). There are 5,863 X-Ray images (JPEG) and 2 categories (Pneumonia/Normal). Chest X-ray images (anterior-posterior) were selected from retrospective cohorts of pediatric patients of one to five years old from Guangzhou Women and Children’s Medical Center, Guangzhou. All chest X-ray imaging was performed as part of patients’ routine clinical care. For the analysis of chest x-ray images, all chest radiographs were initially screened for quality control by removing all low quality or unreadable scans. The diagnoses for the images were then graded by two expert physicians before being cleared for training the AI system. In order to account for any grading errors, the evaluation set was also checked by a third expert. 
+> The dataset is organized into 3 folders (train, test, val) and contains subfolders for each image category (Pneumonia/Normal). There are 5,856 X-Ray images (JPEG) and 2 categories (Pneumonia/Normal). Chest X-ray images (anterior-posterior) were selected from retrospective cohorts of pediatric patients of one to five years old from Guangzhou Women and Children’s Medical Center, Guangzhou. All chest X-ray imaging was performed as part of patients’ routine clinical care. For the analysis of chest x-ray images, all chest radiographs were initially screened for quality control by removing all low quality or unreadable scans. The diagnoses for the images were then graded by two expert physicians before being cleared for training the AI system. In order to account for any grading errors, the evaluation set was also checked by a third expert. 
 
 # ![Data Preparation](images/presentation_assets/Data%20Prep.png)
 ![img](images/presentation_assets/xray%20examples.png)
@@ -46,55 +49,60 @@ The first major iteration was experimenting with the architecture of the model i
 
 | Baseline Model Summary       | Final Model Summary      |
 | ------------- | ------------- |
-|<img src="images\base_model_summary.png">|<img src="images\saved_model_summary.png">|
+|<img src="images\base_model_summary.png">|<img src="images\final_model_summary.png">|
 
 ## Model Training Protocol
 The next major iteration was experimenting with more robust training parameters (specifically within .fit() function). Various arrangements of steps per epochs, total number of epochs and validation steps per epoch were all experimented with. Considering the model's strong tendency to overfit it was ensured that the training protocol remained such that every training data point was seen by the model only once. At this stage epoch counts were tested in multiples of five from 5 to 25. Eventually 15 epochs was selected as the ideal training protocol. 
 
-| Baseline Model Training       | Final Model Training      |
-| ------------- | ------------- |
-|<img src="images\base_model_train_recall.png">|<img src="images\final_model_train_recall.png">|
-|<img src="images\base_model_train_loss.png">|<img src="images\final_model_train_loss.png">|
-|<img src="images\base_model_train_acc.png">|<img src="images\final_model_train_acc.png">|
+#### 10 Epoch Training History
+![base history](images/ten_epoch_history.png)
+#### Final Model Training Histroy
+![final history](images/final_model_history.png)
+
+
 
 ## Network Regularization
 The third major phase of model development was experimenting with various regularization techniques. The least effective of which was dropout regularization (dropping out random nodes from certain layers), this technique made the key performance indicators (KPIs) extremely eradic and not obviously converging on any values or approaching any limits (i.e. lots of zig zigs, not a lot of curves). Hoever L2 regularization showed clear benefits and after some experimentation a weight of 0.005 showed to be the most optimal.  
 
 | L2 Regularization       | Dropout Regularization      |
 | ------------- | ------------- |
-|<img src="images\L2_model_class_report.png">|<img src="images\dropout_model_class_report.png">|
-|<img src="images\L2_model_confussion_matrix.png">|<img src="images\dropout_model_confussion_matrix.png">|
+|<img src="images\L2_matrix.png">|<img src="images\dropout_matrix.png">|
+
 
 
 ## Optimization Algorithm
-The fourth major iteration was experimenting with various optimization algorithms. Up until this point in the project there had been none specified and keras was using whatever default algorithm it assigns (I have so far been unable to find documentation specifying exactly what algorithm that is). After testing three different algorithms, [stochastic gradient descent](https://keras.io/api/optimizers/sgd/), [adaptive momentum estimation](https://keras.io/api/optimizers/adam/), and [adaptive delta](https://keras.io/api/optimizers/adadelta/), it was discoverd that Adam (adaptive moment estimation) was the best algorithm for this model and this project.  
+The fourth major iteration was experimenting with various optimization algorithms. Up until this point in the project there had been none specified, and without sepcifying an algorithm the learning rate can not be adjust (that I can find). After testing three different algorithms, [stochastic gradient descent](https://keras.io/api/optimizers/sgd/), [adaptive momentum estimation](https://keras.io/api/optimizers/adam/), and [adaptive delta](https://keras.io/api/optimizers/adadelta/), it was discoverd that Adam (adaptive moment estimation) was the best algorithm for this model and this project.  Adadelta was so terrible that it predicted everything as pneumonia so its visualization is not show below, only that for SGD and Adam.
 
-| Algorithm       | Classification Report      | Confusion Matrix   |
-| ------------- | ------------- | ------------- |
-|Adam|<img src="images\adam_classification_report.png">|<img src="images\adam_confussion_matrix.png">|
-|SGD|<img src="images\SGD_classification_report.png">|<img src="images\SGD_confussion_matrix.png">|
-|Adadelta|<img src="images\adadelta_classification_report.png">|<img src="images\adadelta_confussion_matrix.png">|  
-
-<img src="images\F1_per_optimization_algorithm.png">
+| SGD       | Adam      |
+| ------------- | ------------- |
+|![SGD](images/SGD_class_balance_prediction.png)|![Adam](images/Adam_class_balance_prediction.png)|  
 
 ## Learning Rate
 The fifth and final iteratation of model development was experimenting with various learning rates of the Adam optimization algorithm. After some experimentation it was determined that the optimal learning rate using Adam is .001. Examples of each learning rate tested are not available in the modeling notebook, because I re-ran the exact same at various learning rates and took note of the KPIs, this was in the interest of the readibility of the notebook and timeliness of the overall process. The learning rate parameter can be easiliy located in the "Learning Rate" section of the modeling notebook and can be easily changed and re-ran if you are so-inclined. 
 
-|        |       |
+|     Results at 1e-3 Learning Rate   |       |
 | ------------- | ------------- | 
-|Classification Report|<img src="images\learning_rate_classification_report.png">|  
-|Loss|<img src="images\learning_rate_loss.png">|
-|Recall|<img src="images\learning_rate_recall.png">|
-|Confussion Matrix|<img src="images\learning_rate_confussion_matrix.png">|  
+|![class balance prediction](images/learning_rate_class_balance_prediction.png)|![confusion matrix](images/learning_rate_matrix.png)| 
 
 # ![Model Evaluation](images/presentation_assets/Model%20Evaluation.png) 
 The key performance indicators utilized for this project are primarily recall, and loss. F1-score is consdered to provide context to the dynamic between recall and precision while accuracy is considered to provide context to the dynamic between recall and loss. In the medical industry it is prefered to have higher rate of false positives and minimal risk of false negatives, rather than a high accuracy with a relatively higher false negative rate. Basically its assumed that false positives will be cross examined by other diangostic tools and eventually caught where as in the case of a false negative a patient may be sent out the door who is in fact ill and this diagnoses never gets cross examend. The performance of the final model on both the test and validation data I find very satisfactory in regard to these unique needs.  
+
+For the sake of readibility and diagnostic efficiency I wrote a small module made custom for this project that provides several functions useful for generating performance statistics such as recall and loss, and rendering visuals of those performance statistics like confusion matrices and visualizing training history. The source code for this module can be found in the [project toolkit](project_toolkit.py) py file found in the root diretory of this repository.
 
 The model had a tendency to overfit throughout the project, made evident by bizarre results such as 1.0 recall and 7.84 loss, and an accuracy of  0.6. A result like this I interpreted as an indication that the model is correctly classifying all the cases of pneumonia but also miss classifying *a lot* of truly negative cases as positive. 
 
 In essence a false positive rate greater than zero is okay for the end user so long as there are not so many false positives that it becomes untenable for the end user to cross-examine and verify with other diagnostic tools. This could potentially lead to the tool being more of a burden than an aid.
 
 So my efforts throughout the iterative process were focused on analyzing these KPIs and taking further steps to reduce the loss function as much as possible while mainting the recall as close to 1.0 as possible. In the end, the final model captures essentially all true cases of pneumonia and predicts false positives on about 20% of the test data and  true negatives on about 20%; on the validation data it correctly predicts all 16 cases. This still has a lot of room for improvement, but compared to the protypical variations of the model it certainly moves in the direction of this projects goals and, more or less, achieves what it is meant to.
+
+## Final Model Diagnostic Visuals  
+#### **Final Model Training History:**  
+![final model history](images/final_model_history.png)
+#### **Final Model Classification Performance:**  
+|| Predicted vs True Class Balance  | Confusion Matrix  |
+|----|-----|-----|
+|Test Data|![final prediction balance](images/final_class_balance_prediction.png)|![final matrix](images/final_confusion_matrix.png)|
+|Validation Data|![final prediction balance](images/val_class_balance_prediction.png)|![final matrix](images/val_confusion_matrix.png)|
 
 # ![Conclusion](images/presentation_assets/Conclusion.png)
 
@@ -106,6 +114,7 @@ So, the very next steps steps I recommend are . . .
 >A: find stakeholders of medical software providers willing to partner with or buy-out the project  
 B: work with said stakeholders to beta test tool with a strategic selection of medical service providers relevant to this projects needs and goals  
 C: utilize beta testing to collect data on the tools user experience impact, real-world diagnostic performance, and expand the dataset for further model optimization.
+
 
 ### Contact Me:
 I deeply appreciate you taking the time to review this notebook and hope you have gained some value from this data science project.  
