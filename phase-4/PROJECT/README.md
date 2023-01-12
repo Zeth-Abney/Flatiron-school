@@ -42,14 +42,14 @@ For more details on the data and the preprocessing steps take please review the 
 The modeling process, demonstrated in detail in the [Modeling notebook](modeling.ipynb), consisted of first building a baseline model with a lean and arbitrary architecture and training protocol, and then measuring more complex and sophisticated iterations against the initial basline model. The measures used primarily were recall and F1-score.
 
 ## Model Architecture
-The first major iteration was experimenting with the architecture of the model itself. This was iterated on later throught the model development process and it was eventually decided on that a relatively simple model architecture was the best direction to take. 
+The first major iteration was experimenting with the architecture of the model itself. I experimented with different amounts and patterns of convultional, max pooling, and dense layers. Finally arriving at a fairly simple architecture but still more complex than the base model.
 
 | Baseline Model Summary       | Final Model Summary      |
 | ------------- | ------------- |
 |<img src="images\base_model_summary.png">|<img src="images\saved_model_summary.png">|
 
 ## Model Training Protocol
-The next major iteration was experimenting with more robust training parameters (specifically within .fit() function). Various arrangements of steps per epochs, total number of epochs and validation steps per epoch were all experimented with. Eventually it was discoverd that the model tends to learn faster, so the final model was trained on a relatively small amount of epochs (while also using an early stoppage technique) and a moderate amount of steps per epoch. 
+The next major iteration was experimenting with more robust training parameters (specifically within .fit() function). Various arrangements of steps per epochs, total number of epochs and validation steps per epoch were all experimented with. Considering the model's strong tendency to overfit it was ensured that the training protocol remained such that every training data point was seen by the model only once. At this stage epoch counts were tested in multiples of five from 5 to 25. Eventually 15 epochs was selected as the ideal training protocol. 
 
 | Baseline Model Training       | Final Model Training      |
 | ------------- | ------------- |
@@ -78,7 +78,7 @@ The fourth major iteration was experimenting with various optimization algorithm
 <img src="images\F1_per_optimization_algorithm.png">
 
 ## Learning Rate
-The fifth and final iteratation of model development was experimenting with various learning rates of the Adam optimization algorithm. After some experimentation it was determined that the optimal learning rate using adam is .01. Examples of each learning rate tested are not available in the modeling notebook, I essentially re-ran the exact same at various learning rates and took note of the KPIs, this was in the interest of the readibility of the notebook. The learning rate parameter can be easiliy located in the "Learning Rate and Early Stopage" section of the modeling notebook and can be easily changed and re-ran if you are so-inclined. 
+The fifth and final iteratation of model development was experimenting with various learning rates of the Adam optimization algorithm. After some experimentation it was determined that the optimal learning rate using Adam is .001. Examples of each learning rate tested are not available in the modeling notebook, because I re-ran the exact same at various learning rates and took note of the KPIs, this was in the interest of the readibility of the notebook and timeliness of the overall process. The learning rate parameter can be easiliy located in the "Learning Rate" section of the modeling notebook and can be easily changed and re-ran if you are so-inclined. 
 
 |        |       |
 | ------------- | ------------- | 
@@ -88,31 +88,39 @@ The fifth and final iteratation of model development was experimenting with vari
 |Confussion Matrix|<img src="images\learning_rate_confussion_matrix.png">|  
 
 # ![Model Evaluation](images/presentation_assets/Model%20Evaluation.png) 
-The key performance indicators utilized for this project are primarily recall, and loss. F1-score is consdiered to provide context to the dynamic between recall and precision while accuracy is considered to provide context to the dynamic between recall and loss. In the medical industry it is prefered to have high risk of false positives and low risk of false negatives, rather than a high accuracy with a relatively higher false negative rate. All this considered recall is the main KPI that I sought to improve while the others provide context for how to do that.  
+The key performance indicators utilized for this project are primarily recall, and loss. F1-score is consdered to provide context to the dynamic between recall and precision while accuracy is considered to provide context to the dynamic between recall and loss. In the medical industry it is prefered to have higher rate of false positives and minimal risk of false negatives, rather than a high accuracy with a relatively higher false negative rate. Basically its assumed that false positives will be cross examined by other diangostic tools and eventually caught where as in the case of a false negative a patient may be sent out the door who is in fact ill and this diagnoses never gets cross examend. The performance of the final model on both the test and validation data I find very satisfactory in regard to these unique needs.  
 
-The model had a tendency to overfit, made evident by results such as 1.0 recall and 7.84 loss, and an accuracy of  0.6. A result like this I interpreted as an indication that the model is correctly classifying all the cases of pneumonia but also miss classifying *a lot* of truly negative cases as positive. 
+The model had a tendency to overfit throughout the project, made evident by bizarre results such as 1.0 recall and 7.84 loss, and an accuracy of  0.6. A result like this I interpreted as an indication that the model is correctly classifying all the cases of pneumonia but also miss classifying *a lot* of truly negative cases as positive. 
 
-In essence a false positive rate greater than zero is okay for the end user so long as there are not so many false positives that it becomes untenable to cross-examine and verify with other diagnostic tools. This could potentially lead to the tool being more of a burden than an aid to the end user.
+In essence a false positive rate greater than zero is okay for the end user so long as there are not so many false positives that it becomes untenable for the end user to cross-examine and verify with other diagnostic tools. This could potentially lead to the tool being more of a burden than an aid.
 
-So my efforts throught the iterative process were focused on analyzing these KPIs and taking further steps to reduce the loss function as much as possible while mainting the recall as close to 1.0 as possible. In the end, the final model yielded a recall at almost exactly 1.0, and accuracy of 75%, and a loss of 0.68. This still has a lot of room for improvement, but compared to the previous evolutions of the model certainly moves in the direction of this projects goals and, more or less, achieves what it was meant to.
+So my efforts throughout the iterative process were focused on analyzing these KPIs and taking further steps to reduce the loss function as much as possible while mainting the recall as close to 1.0 as possible. In the end, the final model captures essentially all true cases of pneumonia and predicts false positives on about 20% of the test data and  true negatives on about 20%; on the validation data it correctly predicts all 16 cases. This still has a lot of room for improvement, but compared to the protypical variations of the model it certainly moves in the direction of this projects goals and, more or less, achieves what it is meant to.
 
 # ![Conclusion](images/presentation_assets/Conclusion.png)
 
-The model definitely captures almost all the true cases of pneumonia, however at the cost of some false positive *"diagnoses"*. This dynamic is expected, and even par for the course within the medical industry. So despite the need for futher improvement upon the model I consider this project a success and a legitimate proof-of-concept. 
+The model definitely captures almost all the true cases of pneumonia, however at the cost of some false positive *"diagnoses"*. This dynamic is expected, and even par-for-the-course within the medical AI world. So despite the need for futher improvement upon the model I consider this project a success and a legitimate proof of concept. 
 
-I recommend deploying this model to beta testing, so we can evaluate its real impact on end user workload, the diagnostic ability to actually aid the end user, and troubleshoot how to integrate the model into existing softwares. 
-
-I recommend expanding the dataset to incorporate a more diversity of nationality and ethnic background among the subjects of the x-ray scans. 
+Its my opinion that this model is ready to be deployed to beta testing so we can evaluate its real world impact on end user experiences, test it against even more unseen data, expand the training dataset, and begin devloping its frontend and backend integrations necessary for deployment. 
 
 So, the very next steps steps I recommend are . . .   
->A: find stakeholders of medical software providers willing to partner with or buy-out  
+>A: find stakeholders of medical software providers willing to partner with or buy-out the project  
 B: work with said stakeholders to beta test tool with a strategic selection of medical service providers relevant to this projects needs and goals  
-C: collect data on the tools usability and real-world diagnostic performance, and also expand the underlying dataset for future model optimization.
+C: utilize beta testing to collect data on the tools user experience impact, real-world diagnostic performance, and expand the dataset for further model optimization.
+
+### Contact Me:
+I deeply appreciate you taking the time to review this notebook and hope you have gained some value from this data science project.  
+If you have any questions, suggestions or otherwise in need of contacting me you can find me through:
+- [LinkedIn](https://www.linkedin.com/in/zeth-abney/)
+- [Instagram](https://www.instagram.com/texan_space_cowboy/)
+- zethusabney@gmail.com
+
+If you are curious about Flatiron School or data science bootcamps in general you can see my entire bootcamp journey on my youtube channel [Data Cowboy](https://www.youtube.com/channel/UCkYdKUId0iITN_czJ0X-sbA)
 
 # Repository Stucture
-├── data (x-ray images organized by class intp subdirectories)  
-├── images (jpg and png files used for presentation and aesthetics)  
-├── presentation (contains pptx files used for non-technical presentation, and pdf files for project submission)     
-├── eda.ipynb (exploratory analysis, previews data and tests modeling conventions)    
-├── modeling.ipynb (contains all interations of the model and the respective analysese)    
+├── [data](data) (x-ray images organized by class into subdirectories, gitignored)  
+├── [images](iamges) (jpg and png files used for presentation and aesthetics)  
+├── [presentation](presentation) (contains pptx files used for non-technical presentation, and pdf files for project submission, gitignored)     
+├── [eda.ipynb](eda.ipynb) (exploratory analysis, previews data and tests modeling conventions)    
+├── [modeling.ipynb](modeling.ipynb) (contains all interations of the model and the respective analysese)   
+├── [project_toolkit.py](project_toolkit.py)     
 └── README.md  
