@@ -106,14 +106,46 @@ So my efforts throughout the iterative process were focused on analyzing these K
 
 # ![Conclusion](images/presentation_assets/Conclusion.png)
 
-The model definitely captures almost all the true cases of pneumonia, however at the cost of some false positive *"diagnoses"*. This dynamic is expected, and even par-for-the-course within the medical AI world. So despite the need for futher improvement upon the model I consider this project a success and a legitimate proof of concept. 
 
-Its my opinion that this model is ready to be deployed to beta testing so we can evaluate its real world impact on end user experiences, test it against even more unseen data, expand the training dataset, and begin devloping its frontend and backend integrations necessary for deployment. 
+## Final Model Description
 
-So, the very next steps steps I recommend are . . .   
->A: find stakeholders of medical software providers willing to partner with or buy-out the project  
-B: work with said stakeholders to beta test tool with a strategic selection of medical service providers relevant to this projects needs and goals  
-C: utilize beta testing to collect data on the tools user experience impact, real-world diagnostic performance, and expand the dataset for further model optimization.
+The final version of the predictive model developed for this project is a convolutional neural network consisting ten total layers (eight hidden layers) using the Adam algorithm to optimize the gradient descent, a regularized network using L2 penalization and random partial dropout in the hidden dense layers. The key points of the model's architecture is as follows: 
+
+	input layer
+	1: Conv2D; 32 outputs, 3x3 window , relu activation, 150x150 input shape
+	
+	five hidden convolutional layers
+	2: MaxPooling2D, 2x2 pool size
+	3: Conv2D, 64 outputs, 3x3 window,  relu activation
+	4: MaxPooling2D, 2x2 pool size
+	5: Conv2D, 128 outputs, 3x3 window, relu activation
+	6: MaxPooling2d, 2x2 pool size
+
+	7: A flattening layer
+	
+	two hidden dense layers 
+	8: Dense, 512 outputs, relu activation, Learning rate 0.0005, dropout 0.05
+	9: Dense, 256 outputs, relu activation, Learning rate 0.005, dropout .01  
+   
+    output layer  
+    10: Dense, 1 output, sigmoid activation
+
+The input is essentially a 1D array where each element is a 2D array representing a single image, meaning all input images are grayscale. All data points are normalized from a scale of 0 - 255 to a scale of 0 - 1. The model is trained on the data in batches of 16 over 15 epochs, in such a way that the model sees every training image only once. 
+
+## Reliability and Limitations
+
+The model definitely predicts in a satisfactory mannor with the data currently available to this project, even data yet unseen. However all that really tells us is that the model can generalize well to other data  *of the same kind and origin*. The origin is infact an individual women's and children's hospital in China. So we have to assume that the typical individual overwhelmingly represented by this dataset is east asian, young and female, and we have to assume that would incaulcate the model with some bias. Additionally there is a relatively significant class imbalance in both the training and test data; it probably has high fidelity with the population it actually represents, but perhaps not representative of the true class balance of observations it will be expected to analyze in a production setting. In other words the homogenous nature of the data origin, and the class imbalance of the source data both certainly invoke some bias or even naivete in the model. This would need to be addressed before releasing the tool to a production setting. All of these issues could be feasibly recrtified by a) soliciting data from similar hospitals on other continents and b) collecting data throughout beta testing.     
+
+Furthermore there are hardware limitations. This projects has been conducted in its entirety on my personal machine, more sophisticated model's could be more quickly tested and iterated over with a more specialized computing solution. This could be resolved with a dedicated physical machine, or a cloud computing solution. If nothing else, as the dataset grows this would quickly become a necessity.   
+
+## Recomendations moving forward
+So, the very next steps steps I recommend are . . .  
+
+    A: negotiate a partnership or buy out with an existing medical software provider  
+    B: beta test with select medical providers  
+    C: gather data even outside of beta-testing network   
+    D: expand classification set to include bacterial vs varial pneumonia  
+    E: expand model's ability to generalize to unseen data 
 
 
 ### Contact Me:
