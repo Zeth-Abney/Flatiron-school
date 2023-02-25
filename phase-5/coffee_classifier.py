@@ -1,37 +1,80 @@
-import tkinter as tk
-from tkinter import Canvas
-from tkinter import ttk
-import tkinterDnD
-from PIL import Image,ImageTk
-
-# create the main window
-root = tkinterDnD.Tk()
-
-# set the title of the window
-root.title("Coffee Roast Classifier")
-
-# set the size of the window
-root.geometry("400x300")
-
-stringvar = tk.StringVar()
-stringvar.set('Drop here or drag from here!')
+import sys, os
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
 
 
-def drop(event):
-    # This function is called, when stuff is dropped into a widget
-    stringvar.set(event.data)
+class ImageLabel(QLabel):
+    def __init__(self):
+        super().__init__()
 
-def drag_command(event):
-    # This function is called at the start of the drag,
-    # it returns the drag type, the content type, and the actual content
-    return (tkinterDnD.COPY, "DND_Text", "Some nice dropped text!")
+        self.setAlignment(Qt.AlignCenter)
+        self.setText('\n\n Drop Image Here \n\n')
+        self.setStyleSheet('''
+            QLabel{
+                border: 4px dashed #aaa
+            }
+        ''')
 
-# With DnD hook you just pass the command to the proper argument,
-# and tkinterDnD will take care of the rest
-# note: You need a ttk widget to use these arguments
+    def setPixmap(self, image):
+        super().setPixmap(image)
 
-label_1 = ttk.Label(root, ondrop=drop, ondragstart=drag_command,
-                    textvar=stringvar, padding=50, relief="solid")
-label_1.pack(fill="both", expand=True, padx=10, pady=10)
+class AppDemo(QWidget):
+    def __init__(self):
+        super().__init__()
 
-root.mainloop()
+        # Set the window size, title, and allow it to accept drops
+        self.setWindowTitle("Coffee Classifier")
+        self.resize(1000, 1000)
+        self.setAcceptDrops(True)
+
+        # Set up the main layout
+        mainLayout = QVBoxLayout()
+
+        # Create the top image label and add it to the layout
+        self.photoViewer = ImageLabel()
+        self.photoViewer.setFixedSize(1000,500)
+        mainLayout.addWidget(self.photoViewer)
+
+        # Create the bottom label for the file path and add it to the layout
+        self.pathLabel = QLabel()
+        mainLayout.addWidget(self.pathLabel)
+
+        # Set the layout for the window
+        self.setLayout(mainLayout)
+
+    def dragEnterEvent(self, event):
+        # Check if the event has image data and accept it if it does
+        if event.mimeData().hasImage:
+            event.accept()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        # Check if the event has image data and accept it if it does
+        if event.mimeData().hasImage:
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        # Check if the event has image data and set the image if it does
+        if event.mimeData().hasImage:
+            event.setDropAction(Qt.CopyAction)
+            file_path = event.mimeData().urls()[0].toLocalFile()
+            self.set_image(file_path)
+            # Set the text of the file path label to the dropped image's file path
+            self.pathLabel.setText(file_path)
+
+            event.accept()
+        else:
+            event.ignore()
+
+    def set_image(self, file_path):
+        # Set the pixmap for the top image label using the dropped image's file path
+        self.photoViewer.setPixmap(QPixmap(file_path))
+
+app = QApplication(sys.argv)
+demo = AppDemo()
+demo.show()
+sys.exit(app.exec_())
