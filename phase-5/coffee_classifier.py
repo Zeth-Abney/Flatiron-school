@@ -1,3 +1,21 @@
+"""
+The Coffee Classifier application is a GUI (Graphical User Interface) designed to classify coffee bean images into one of four roast levels: Green, Light, Medium, or Dark. The application uses a pre-trained deep learning model (located at 'data/final_model.h5') to predict the label for each image. The images should be in .jpg, .jpeg, or .png format and must have a size of 224x224 pixels.
+
+The classify_bean function takes a file path string as input, loads the image at that path, resizes it to 224x224 pixels, converts it to grayscale, and normalizes the pixel values before passing it through the pre-trained model. It returns the predicted label as a string (Green, Light, Medium, or Dark). If the file path is invalid or if the image is not 224x224 pixels, a ValueError is raised.
+
+The AppDemo class inherits from the QWidget class and creates the GUI. The GUI has three labels: photoViewer, pathLabel, and label. photoViewer is a QLabel that displays the image dropped onto the GUI. pathLabel is a QLabel that displays the file path of the image. label is a QLabel that displays the predicted roast level for the image.
+
+The AppDemo class has four methods:
+
+classify_image() takes a file path as input, calls the classify_bean function to predict the roast level of the image, and sets the predicted label in the label QLabel.
+
+set_image() takes a file path as input and sets the image in the photoViewer QLabel.
+
+dragEnterEvent(), dragMoveEvent(), and dropEvent() are methods that allow the GUI to accept image files that are dragged and dropped onto it. When a file is dropped onto the GUI, the set_image() method is called to set the image in the photoViewer QLabel, and the classify_image() method is called to predict the roast level of the image and display it in the label QLabel.
+
+Overall, this application can be used to classify single coffee bean images into one of four roast levels by simply dragging and dropping the image onto the GUI. The application can be modified to classify other types of images as well by training a new model and adjusting the classify_bean() function accordingly.
+"""
+
 import sys, os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
 from PyQt5.QtCore import Qt
@@ -54,6 +72,18 @@ def classify_bean(filepath:str):
 
 
 class ImageLabel(QLabel):
+    """
+    QLabel subclass for displaying images.
+
+    This class provides a QLabel widget that can display images. It is used to show the
+    image dropped onto the application window and set the image in the widget.
+
+    Attributes:
+        None
+
+    Methods:
+        setPixmap(image): Sets the pixmap of the label to the specified image.
+    """
     def __init__(self):
         super().__init__()
 
@@ -70,6 +100,9 @@ class ImageLabel(QLabel):
 
 
 class AppDemo(QWidget):
+    """
+    A PyQt5 widget that allows the user to classify the roast level of a coffee bean image by dragging and dropping an image onto the widget.
+    """
     def __init__(self):
         super().__init__()
 
