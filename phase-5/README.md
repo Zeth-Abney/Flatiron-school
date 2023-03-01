@@ -1,4 +1,4 @@
-# Project Overview
+# ![Project Overview](presentation/readme/Project%20Overview.png)
 This project aims to build a convolutional neural network that can classify images of coffee beans into one of four categories representing various stages of the roasting process: raw, light, medium, and dark. The model will take jpeg images of coffee beans as an input, analyze the image using convolutional layers, and make a prediction about the roast stage.
 
 This project is important to pursue because it demonstrates how artificial intelligence (AI) can be used to improve processes and outcomes in the coffee industry. By leveraging the power of machine learning, coffee roasters can achieve greater consistency in their roasts, which can lead to higher quality coffee and increased customer satisfaction. Additionally, this project is just the tip of the iceberg when it comes to the potential for innovation in the coffee industry utilizing AI technology. There are many other applications of machine learning in the coffee industry, such as predicting consumer preferences, optimizing supply chain logistics, and improving the efficiency of coffee farming. As such, this project represents an exciting opportunity to explore the possibilities of AI in the coffee industry and beyond.  
@@ -10,7 +10,7 @@ The project can be broken down into the following steps:
 - Evaluate the performance of each model version on a test dataset to determine accuracy and other key performance indicators (KPI)  
 - Deploy the model to a system that can accept jpeg images as input, classify them, and alert workers when the desired roast is achieved. 
 
-# Business Use Case
+# ![Business Use Case](presentation/readme/Business%20Use%20Case.png)
 This project has the potential to significantly improve the coffee roasting process in terms of quality control, labor efficiency, and profitability. By using a camera positioned above the roasting bin to periodically capture images and analyze the roast level of the beans, the system can help coffee roasters achieve greater consistency in their roasts. This can lead to higher quality coffee and increased customer satisfaction.  
 
 In addition, this system can help reduce waste by alerting workers when the beans are overcooked or undercooked, thereby minimizing the amount of coffee that must be discarded. This reduction in waste can have a significant impact on a roaster's bottom line, as it reduces the cost of materials and increases profitability.  
@@ -18,14 +18,14 @@ In addition, this system can help reduce waste by alerting workers when the bean
 Furthermore, this system can help workers be more productive by allowing them to focus on other tasks while the roasting process is underway. Since the system can monitor the roasting process and alert workers when the desired roast level is achieved, workers do not need to pay as close attention to each roasting bin. This can free up time and resources that can be directed towards other areas of the business, further increasing efficiency and profitability.
 Overall, this project represents a powerful tool for coffee roasters looking to improve their operations and achieve greater success in the highly competitive coffee industry. By utilizing AI technology to improve quality control, reduce waste, and increase labor efficiency, coffee roasters can deliver a better product to their customers and increase their bottom line.
 
-# Data Understanding 
+# ![Data Understanding](presentation/readme/Data%20Understanding.png) 
 The dataset used in this project comes from kaggle.com and consists of 1200 training images and 400 test images. Each sample is equally distributed between the four classes, with 300 images per class in the training set and 100 images per class in the test set. All the images are of a single coffee bean and are of size 224x224 pixels. The dataset's class labels are (Green, 0), (Light, 1), (Medium, 2) and (Dark, 3). The images were captured using an iPhone 12 mini, which means that the images are of high quality and consistent.
 
 To further test the model and the dataset's limitations, I am creating a small validation dataset using my own iPhone 13 pro camera. This dataset will include images of both single coffee beans, like the training and test data, as well as images of multiple beans. By doing so, I hope to evaluate the model's performance in detecting the stage of the roasting process as well as get a feel for the models limitations.
 
 Overall, I believe that this dataset provides a good representation of the different stages of coffee bean roasting, and I am confident that our model can successfully classify coffee bean images.  
 
-# Data Preparation
+# ![Data Preparation](presentation/readme/Data%20Preparation.png)
 To prepare the image data for modeling, I utilized the ImageDataGenerator class from Keras to read in the PNG files and directly access the image data as matrices. This method makes it easy to load in and preprocess large datasets. The ImageDataGenerator objects were set to normalize the pixel values to a scale of 0-1 using the rescale argument. I also set the color_mode argument to grayscale since I only need to work with a single channel for these images.
 
 Normalizing the pixel values and setting to grayscale are standard practices for image classification tasks. Normalizing the pixel values scales down the pixel values to a range that is better suited for machine learning algorithms, while setting the images to grayscale removes color as a variable in the analysis, simplifying the model's learning process.
@@ -38,7 +38,7 @@ The second function, preprocess_new_image(source_dir:str, target_dir:str,debug_m
 
 To use these functions, simply call preprocess_new_image() with the source and target directory paths as arguments. The function will automatically loop through each image file in the source directory, resize it using resize_image(), and save the resized image as a PNG file in the target directory with a new filename that includes the original class name and a unique number.
 
-# Modeling Methods 
+# ![Modeling Methods](presentation/readme/Modeling%20Methods.png) 
 For this project, I developed a convolutional neural network (CNN) using Keras to classify different levels of roast for coffee beans. A CNN is an ideal model choice for image classification tasks like this one because it can effectively extract important features from the input images through convolutional layers, and can then use pooling layers to reduce dimensionality and improve computational efficiency. Additionally, CNNs are able to learn hierarchical representations of the input images, which is especially useful for image recognition tasks where features like edges, shapes, and textures can be learned at lower layers and combined to identify more complex features like object shapes and patterns at higher layers.
 
 Keras is a great tool for building CNNs because it provides a user-friendly and high-level interface for constructing and training deep learning models. Its simple and intuitive syntax allows for rapid prototyping and iteration, making it ideal for experimentation and development. Keras also offers a variety of pre-built neural network layers and optimization algorithms, which can save time and reduce the complexity of building deep learning models from scratch. Overall, using Keras made it easier for me to focus on the specific details of my project rather than worrying about low-level implementation details.
@@ -47,7 +47,7 @@ During the development of the model, several iterations were tested to improve i
 
 The final model architecture consists of 3 convolutional layers with max pooling, followed by 2 fully connected (Dense) layers and an output layer with a softmax activation function. The model has a total of 4,319,788 trainable parameters.
 
-# Evaluation Methods 
+# ![Evaluation Methods](presentation/readme/Evaluation%20Methods.png) 
 In this project, I have chosen accuracy as the primary KPI for evaluating the performance of the model. Since this is a multi-class classification problem where each class is equally important to be predicted correctly, accuracy provides a straightforward way to measure the percentage of correct predictions made by the model across all classes. Additionally, I also monitored loss during training to provide context when accuracy is not doing well.
 
 To delve deeper into the model's performance, I wrote several functions that are available in the project_toolkit.py module. These functions are designed to make it quick and easy to calculate various KPIs, make predictions, and evaluate the quality of the predictions.
@@ -56,7 +56,7 @@ For instance, the evaluate_model() function can be used to obtain detailed infor
 
 Overall, the project_toolkit module offers a variety of useful functions for evaluating the performance of the model. It not only provides a simple way to calculate KPIs and create visualizations of the model's predictions but also offers various methods for evaluating the model's quality. This approach to evaluation is particularly relevant in this use case where we want to accurately classify the roast level of coffee beans.
 
-# Project Scope and Limitations
+# ![Project Scope and Limitations](presentation/readme/Scope%20and%20Limitations.png)
 
 The scope of this project was to develop a convolutional neural network (CNN) model to classify images of coffee beans into four roast categories: green, light, medium, and dark. While this model can accurately classify individual bean images, it is important to note its limitations in a production setting.
 
@@ -68,7 +68,7 @@ Lastly, all of the training and test images were taken on the same iPhone 12 cam
 
 This project serves as a proof-of-concept that a CNN can be efficiently developed to address this classification problem. The project demonstrates that it is possible to take images from a variety of sources and preprocess them in a way that the model can take any of them as inputs. However, it is important to note that the model is far from being ready for use in production due to the aforementioned limitations.
 
-# Recomendations and Conclusion
+# ![Recomendations and Conclusion](presentation/readme/Conclusion.png)
 After developing and testing the model, I would like to share some recommendations and conclusions based on the project.
 
 Firstly, I recommend expanding the dataset to include images of coffee beans from different roasteries, including images with multiple beans that overlap with one another. This will help improve the model's accuracy and ability to handle images from a variety of sources.
