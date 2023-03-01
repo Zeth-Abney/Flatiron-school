@@ -102,4 +102,4 @@ If you are curious about Flatiron School or data science bootcamps in general yo
 ├── [Coffee Classifier](notebook.ipynb) (source code for proof-of-concept GUI application)  
 ├── [notebook.ipynb](notebook.ipynb) (contains all the code and documentation of the technical methods used)   
 ├── [project_toolkit.py](project_toolkit.py) (source code for functions used for data visualization, model evaluation, and data preprocessing)  
-└── README.md  
+└── README.md  (you are here)
