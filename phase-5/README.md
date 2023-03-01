@@ -20,8 +20,13 @@ Overall, this project represents a powerful tool for coffee roasters looking to 
 
 # ![Data Understanding](presentation/readme/Data%20Understanding.png) 
 The dataset used in this project comes from kaggle.com and consists of 1200 training images and 400 test images. Each sample is equally distributed between the four classes, with 300 images per class in the training set and 100 images per class in the test set. All the images are of a single coffee bean and are of size 224x224 pixels. The dataset's class labels are (Green, 0), (Light, 1), (Medium, 2) and (Dark, 3). The images were captured using an iPhone 12 mini, which means that the images are of high quality and consistent.
+![dataset](presentation/dataviz/dataset%20class%20balance.png)
 
 To further test the model and the dataset's limitations, I am creating a small validation dataset using my own iPhone 13 pro camera. This dataset will include images of both single coffee beans, like the training and test data, as well as images of multiple beans. By doing so, I hope to evaluate the model's performance in detecting the stage of the roasting process as well as get a feel for the models limitations.
+
+|Train|Test|Validation|
+|-----|-------|-----------|
+|![train](data/train/C.%20Medium/medium%20(1).png)|![test](data/test/C.%20Medium/medium%20(1).png)|![val](data/val/C.%20Medium/medium%20(1).png)|
 
 Overall, I believe that this dataset provides a good representation of the different stages of coffee bean roasting, and I am confident that our model can successfully classify coffee bean images.  
 
@@ -30,29 +35,31 @@ To prepare the image data for modeling, I utilized the ImageDataGenerator class 
 
 Normalizing the pixel values and setting to grayscale are standard practices for image classification tasks. Normalizing the pixel values scales down the pixel values to a range that is better suited for machine learning algorithms, while setting the images to grayscale removes color as a variable in the analysis, simplifying the model's learning process.
 
-When preparing new data to add to the validation sample that was not part of the original train/test dataset, I created two functions in my project toolkit module to aid in the preprocessing of these images.
+When preparing new data to add to the validation sample that was not part of the original train/test dataset, I developed a function in the [project toolkit](project_toolkit.py) module to aid in the preprocessing of these images.
 
-The first function, resize_image(im_path:str, new_width:int), resizes a PIL image object while preserving its aspect ratio. It takes in the image file path and the desired width of the resized image as arguments and returns the resized image with the specified width and proportional height.
-
-The second function, preprocess_new_image(source_dir:str, target_dir:str,debug_mode=False), preprocesses all the image files in a directory by resizing them to a fixed width of 224 and saving them as PNG files in a new directory. It takes in the path to the source directory containing the image files, the path to the target directory where the resized images will be saved, and an optional boolean debug_mode flag. When debug_mode is set to True, the function will only print the new target file paths without saving the files.
-
-To use these functions, simply call preprocess_new_image() with the source and target directory paths as arguments. The function will automatically loop through each image file in the source directory, resize it using resize_image(), and save the resized image as a PNG file in the target directory with a new filename that includes the original class name and a unique number.
+The function, preprocess_new_image(source_dir:str, target_dir:str,debug_mode=False), preprocesses all the image files in a directory by resizing them to a fixed width and height of 224 pixels and then saving them as PNG files in a the target directory with file names that represent their label and index. It takes in the source and target directory paths as arguments, and has a debug_mode parameter that will print the target path of each file being iterated over instead of actually saving the file at that location.
 
 # ![Modeling Methods](presentation/readme/Modeling%20Methods.png) 
 For this project, I developed a convolutional neural network (CNN) using Keras to classify different levels of roast for coffee beans. A CNN is an ideal model choice for image classification tasks like this one because it can effectively extract important features from the input images through convolutional layers, and can then use pooling layers to reduce dimensionality and improve computational efficiency. Additionally, CNNs are able to learn hierarchical representations of the input images, which is especially useful for image recognition tasks where features like edges, shapes, and textures can be learned at lower layers and combined to identify more complex features like object shapes and patterns at higher layers.
 
 Keras is a great tool for building CNNs because it provides a user-friendly and high-level interface for constructing and training deep learning models. Its simple and intuitive syntax allows for rapid prototyping and iteration, making it ideal for experimentation and development. Keras also offers a variety of pre-built neural network layers and optimization algorithms, which can save time and reduce the complexity of building deep learning models from scratch. Overall, using Keras made it easier for me to focus on the specific details of my project rather than worrying about low-level implementation details.
 
-During the development of the model, several iterations were tested to improve its performance. The best model was achieved by training the model for 16 epochs using 48 steps per epoch and a batch size of 25, with early stopping callback to prevent overfitting. L2 regularization was also added to the two Dense layers of the model to further improve its performance.
+During the development of the model, several iterations were tested to improve its performance. The best model was achieved by training the model for 16 epochs using 48 steps per epoch and a batch size of 25, with early stopping callback to prevent overfitting. L2 regularization was also added to the two Dense layers of the model to further improve its performance.  
+![four epoch](presentation/dataviz/history/four_epoch_history.png)
+![12 epoch](presentation/dataviz/history/L2_005_history.png)
 
 The final model architecture consists of 3 convolutional layers with max pooling, followed by 2 fully connected (Dense) layers and an output layer with a softmax activation function. The model has a total of 4,319,788 trainable parameters.
+![final model](presentation/dataviz/history/final_model_history.png)
 
 # ![Evaluation Methods](presentation/readme/Evaluation%20Methods.png) 
 In this project, I have chosen accuracy as the primary KPI for evaluating the performance of the model. Since this is a multi-class classification problem where each class is equally important to be predicted correctly, accuracy provides a straightforward way to measure the percentage of correct predictions made by the model across all classes. Additionally, I also monitored loss during training to provide context when accuracy is not doing well.
 
 To delve deeper into the model's performance, I wrote several functions that are available in the project_toolkit.py module. These functions are designed to make it quick and easy to calculate various KPIs, make predictions, and evaluate the quality of the predictions.
 
-For instance, the evaluate_model() function can be used to obtain detailed information like a classifaction report, confusion matrix, and label predictions. Furthermore, functions like viz_confusion_matrix, among others, use the return values of the former function to create useful visualizations of the model's performance. 
+For instance, the evaluate_model() function can be used to obtain detailed information like a classifaction report, confusion matrix, and label predictions. Furthermore, functions like viz_confusion_matrix, among others, use the return values of the former function to create useful visualizations of the model's performance.
+
+![final model matrix](presentation/dataviz/matrix/final_model_matrix.png)
+![final model class balance](presentation/dataviz/class%20balance/final_model_balance.png)
 
 Overall, the project_toolkit module offers a variety of useful functions for evaluating the performance of the model. It not only provides a simple way to calculate KPIs and create visualizations of the model's predictions but also offers various methods for evaluating the model's quality. This approach to evaluation is particularly relevant in this use case where we want to accurately classify the roast level of coffee beans.
 
@@ -79,3 +86,20 @@ Lastly, I recommend involving a software developer and UX designer in the projec
 
 In conclusion, this project is a successful proof-of-concept and worth investing resources into in order to bring it to production. Although there are limitations, this project has shown that it is possible to efficiently develop a CNN to address this classification problem and take images from a variety of sources, including within an application that non-technical users can interface with. If brought to production, this project has the potential to increase productivity and profitability by allowing for greater consistency in quality control and leveraging human capital by automating traditionally manual tasks. I am excited about this outcome and eagerly await any feedback.
 
+## Contact Me:
+I sincerely appreciate you taking the time to review this repository and hope you have gained some value from this data science project.  
+
+If you have any questions, suggestions or otherwise in need of contacting me you can find me through:
+- [LinkedIn](https://www.linkedin.com/in/zeth-abney/)
+- [Instagram](https://www.instagram.com/texan_space_cowboy/)
+- zethusabney@gmail.com
+
+If you are curious about Flatiron School or data science bootcamps in general you can see my entire bootcamp journey on my youtube channel [Data Cowboy](https://www.youtube.com/channel/UCkYdKUId0iITN_czJ0X-sbA)
+
+# Repository Stucture
+├── [data](data) (png images of single coffe beans organized by class into subdirectories, gitignored)   
+├── [presentation](presentation) (contains data visualizations, decorative graphics, pptx presentation files, pdf submission files, gitignored)  
+├── [Coffee Classifier](notebook.ipynb) (source code for proof-of-concept GUI application)  
+├── [notebook.ipynb](notebook.ipynb) (contains all the code and documentation of the technical methods used)   
+├── [project_toolkit.py](project_toolkit.py) (source code for functions used for data visualization, model evaluation, and data preprocessing)  
+└── README.md  
