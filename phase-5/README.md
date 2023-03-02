@@ -97,7 +97,7 @@ If you have any questions, suggestions or otherwise in need of contacting me you
 If you are curious about Flatiron School or data science bootcamps in general you can see my entire bootcamp journey on my youtube channel [Data Cowboy](https://www.youtube.com/channel/UCkYdKUId0iITN_czJ0X-sbA)
 
 # Repository Stucture
-├── [data](data) (png images of single coffe beans organized by class into subdirectories, gitignored)
+├── [data](data) (png images of single coffe beans organized by class into subdirectories, gitignored)  
 ├── [images](images) (png and jpeg files used for embelishment and presentation)   
 ├── [presentation](presentation) (contains data visualizations, decorative graphics, pptx presentation files, pdf submission files, gitignored)  
 ├── [Coffee Classifier](notebook.ipynb) (source code for proof-of-concept GUI application)  
