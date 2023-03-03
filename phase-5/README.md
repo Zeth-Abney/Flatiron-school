@@ -26,7 +26,7 @@ To further test the model and the dataset's limitations, I am creating a small v
 
 |Train|Test|Validation|
 |-----|-------|-----------|
-|![train](data/train/C.%20Medium/medium%20(1).png)|![test](data/test/C.%20Medium/medium%20(1).png)|![val](data/val/C.%20Medium/medium%20(1).png)|
+|![train](images/train.png)|![test](images/test.png)|![val](images/val.png)|
 
 Overall, I believe that this dataset provides a good representation of the different stages of coffee bean roasting, and I am confident that our model can successfully classify coffee bean images.  
 
@@ -62,6 +62,19 @@ For instance, the evaluate_model() function can be used to obtain detailed infor
 ![final model class balance](images/dataviz/class%20balance/final_model_balance.png)
 
 Overall, the project_toolkit module offers a variety of useful functions for evaluating the performance of the model. It not only provides a simple way to calculate KPIs and create visualizations of the model's predictions but also offers various methods for evaluating the model's quality. This approach to evaluation is particularly relevant in this use case where we want to accurately classify the roast level of coffee beans.
+
+## Validation Testing
+
+The validation sample used for testing the model was sourced from two different local coffee shops and one local roastery. The images were captured on a personal iPhone 13 using ambient fluorescent light and direct LED light set at 4500K with a white background, in order to replicate the lighting conditions of the kaggle dataset as much as possible.  
+
+The model's performance on the validation sample was rather poor, with an overall accuracy of 38%. However, the patterns in the model's mistakes were consistent with my expectations. The model tended to classify the validation sample incorrectly towards the darker side, where raw coffee was sometimes classified as light, a light roast was classified as medium, and a medium roast was classified as dark, etc.
+
+![val matrix](images/dataviz/val_matrix.png)
+![val balance](images/dataviz/val_class_balance.png)
+
+After consulting with the local roaster from whom I sourced the raw and light roast coffee beans for the validation set, I learned that the "light roast" in from the training and test samples would probably be considered "white coffee" by most roasters, which falls between raw and what he considers a "light roast." This information helped me understand why the model may have struggled with correctly classifying light roasts. It is probably more of a human labeling issue than a limitation of the models ability to distinguish between classes.  
+
+Despite the poor performance on the validation sample, I am actually excited by the outcome. The model performed exceptionally well on the test data, which raises some suspicion as to whether the model was overfitting to the test dataset. Testing the model with truly unseen data was important, and the fact that the model underperformed in a way that was expected based on my conversation with the local roaster actually increased my confidence in the project's potential for a profitable production application.
 
 # ![Project Scope and Limitations](images/readme/Scope%20and%20Limitations.png)
 
@@ -99,7 +112,7 @@ If you are curious about Flatiron School or data science bootcamps in general yo
 # Repository Stucture
 ├── [data](data) (png images of single coffe beans organized by class into subdirectories, gitignored)  
 ├── [images](images) (png and jpeg files used for embelishment and presentation)   
-├── [presentation](presentation) (contains data visualizations, decorative graphics, pptx presentation files, pdf submission files, gitignored)  
+├── [presentation](presentation) (contains pptx presentation files, pdf submission files, gitignored)  
 ├── [Coffee Classifier](notebook.ipynb) (source code for proof-of-concept GUI application)  
 ├── [notebook.ipynb](notebook.ipynb) (contains all the code and documentation of the technical methods used)   
 ├── [project_toolkit.py](project_toolkit.py) (source code for functions used for data visualization, model evaluation, and data preprocessing)  
